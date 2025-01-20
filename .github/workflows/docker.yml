@@ -1,9 +1,6 @@
 name: Docker Build 和 Push
 
 on:
-  workflow_run:
-    workflows: [Upstream Sync]
-    types: [completed]
   workflow_dispatch:
     inputs:
       update_latest:
