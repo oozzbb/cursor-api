@@ -1,13 +1,16 @@
-name: Docker Build and Push
+name: Docker Build 和 Push
 
 on:
+  workflow_run:
+    workflows: [Upstream Sync]
+    types: [completed]
   workflow_dispatch:
     inputs:
       update_latest:
         description: '是否更新 latest 标签'
         required: true
         type: boolean
-        default: false
+        default: true
       upload_artifacts:
         description: '是否上传构建产物'
         required: true
@@ -58,7 +61,7 @@ jobs:
             image=moby/buildkit:latest
             network=host
 
-      - name: Build and push Docker image
+      - name: Build 和 push Docker image
         uses: docker/build-push-action@v6.11.0
         env:
           DOCKER_BUILD_RECORD_UPLOAD: false
